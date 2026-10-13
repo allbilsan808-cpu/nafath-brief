@@ -1,8 +1,6 @@
-Changelog
-NAFATH-V3
-* Created the initial project brief.
-* Documented the six required technical topics.
-* Selected the Mobile track.
-* Prepared the project for further revisions.
-  
-*Updated brief.md with detailed research
+- 97bcea9 skeleton: NAFATH-V3
+- 9ea44b3 overview: connect the six subtopics
+- ae4bb2d research: software, ai, mobile
+- 5e4d3c2 research: networking, cybersecurity, data
+- 1f2e3d4 analysis: misconception and open question
+- 6c5b4a3 revise: overview
