@@ -1,38 +1,43 @@
-Version: NAFATH-V3 Track: Mobile
+Version: NAFATH-V3
+Track: Mobile
 
 ## Overview
-This document covers the research for building a trustworthy AI assistant for public service mobile applications under the NAFATH-V3 program.
+Building a public service AI chat assistant requires integrating six key IT fields into a cohesive system. Software standardizes releases, AI delivers grounded responses through retrieval, and Mobile enforces strict transport security. Networking ensures scalable device connectivity, Cybersecurity protects against prompt exploitation, and Data manages privacy for chat logs. Together, these fields form a secure, efficient, and compliant solution for citizen services, with a primary focus on Mobile app integration.
 
 ## Software
-### Question: When does the major, minor, or patch version number change according to Semantic Versioning (SemVer)?
-- **MAJOR version (`X.0.0`):** Incremented when breaking changes or incompatible API updates are introduced that require client updates.
-- **MINOR version (`0.X.0`):** Incremented when new functionality or features are added in a backward-compatible manner.
-- **PATCH version (`0.0.X`):** Incremented when backward-compatible bug fixes or security patches are applied.
+Under Semantic Versioning (SemVer 2.0.0), the assistant's public API increments the MAJOR version when breaking changes or incompatible API updates are introduced that require client updates. It increments the MINOR version when new backward-compatible functionality is added, and the PATCH version when backward-compatible bug fixes are applied.
+
+Resource: Semantic Versioning 2.0.0 - https://semver.org/
 
 ## AI
-### Question: What is Retrieval-Augmented Generation (RAG) and how does it help reduce hallucinations?
-- **Retrieval-Augmented Generation (RAG):** A technique that connects Large Language Models (LLMs) to external authoritative databases or document stores to retrieve relevant context before generating a response.
-- **Reducing Hallucinations:** By grounding the AI's responses in retrieved, verified facts rather than relying solely on pre-trained weights, RAG ensures accurate and trustworthy outputs for public services.
+Retrieval-Augmented Generation (RAG) is a technique that connects Large Language Models (LLMs) to external, authoritative databases or document stores to retrieve relevant context before generating a response. It reduces incorrect answers and hallucinations by grounding outputs directly in verified public service data rather than relying solely on pre-trained model weights.
+
+Resource: What is RAG? - AWS - https://aws.amazon.com/what-is/retrieval-augmented-generation/
 
 ## Mobile
-### Question: What is the function of iOS App Transport Security (ATS)?
-- **App Transport Security (ATS):** A privacy and security feature enforced by iOS that requires apps to establish secure network connections over HTTPS using TLS v1.2 or higher.
-- **Function:** It protects sensitive user data in transit by blocking unencrypted HTTP connections by default.
+iOS App Transport Security (ATS) enforces secure network connections by requiring apps to use HTTPS with TLS v1.2 or higher. If the app attempts to call a plain HTTP (non-HTTPS) endpoint, iOS blocks the network request by default, triggering a connection failure unless specific, temporary domain exceptions are configured in Info.plist.
+
+Resource: Apple Developer Documentation: App Transport Security - https://developer.apple.com/documentation/security/app_transport_security
 
 ## Networking
-### Question: What is the difference between IPv4 and IPv6?
-- **IPv4:** Uses a 32-bit address space (providing ~4.3 billion unique addresses), represented in decimal format (e.g., `192.168.1.1`).
-- **IPv6:** Uses a 128-bit address space (providing an virtually unlimited number of addresses), represented in hexadecimal format (e.g., `2001:db8::1`), offering built-in security (IPsec) and better routing efficiency. 
+IPv6 uses a 128-bit address space providing virtually unlimited unique IP addresses, whereas IPv4 uses a 32-bit address space limited to ~4.3 billion addresses. As the number of connected mobile devices grows, IPv6 is critical to prevent IP exhaustion, eliminate Network Address Translation (NAT) overhead, and improve end-to-end routing efficiency.
+
+Resource: RFC 8200 - Internet Protocol, Version 6 (IPv6) Specification - https://datatracker.ietf.org/doc/html/rfc8200
+
 ## Cybersecurity
-### Question: What is Prompt Injection and how can its risks be mitigated?
-- **Prompt Injection:** A vulnerability where malicious input overwrites or manipulates the original instructions given to an LLM, causing it to perform unintended actions or bypass guardrails.
-- **Mitigation:** Implemented through input sanitization, strict system prompt separation, strict role-based authorization, output validation, and continuous monitoring.
+Prompt injection is an attack where malicious input manipulates an LLM into performing unintended actions. Direct prompt injection occurs when a user directly feeds malicious instructions in the chat input. Indirect prompt injection occurs when the LLM processes external untrusted content containing hidden malicious instructions. Risks are reduced by separating system instructions from user inputs and sanitizing inputs.
+
+Resource: OWASP Top 10 for LLM Applications: Prompt Injection - https://llmtop10.owasp.org/LLM01_Prompt_Injection/
+
 ## Data
-### Question: What is the difference between Data Anonymization and Pseudonymization?
-- **Data Anonymization:** Irreversibly alters personal data so that the data subject can no longer be identified directly or indirectly by anyone.
-- **Pseudonymization:** Replaces identifiable data fields with artificial identifiers (pseudonyms) in a way that allows re-identification only with a separately stored secret key.
+Data anonymization irreversibly alters personal data so the subject cannot be identified directly or indirectly, whereas pseudonymization replaces identifiers with artificial keys that can be re-identified using separately stored data. Data anonymization takes chat logs outside the scope of data protection laws because the data is no longer considered personal data.
+
+Resource: Regulation (EU) 2016/679 (GDPR) Recital 26 - https://gdpr-info.eu/recitals/no-26/
+
 ## Misconception in My Track
-- **Misconception:** Assuming that App Transport Security (ATS) guarantees complete end-to-end security for all data handled within a mobile app.
-- **Reality:** ATS only secures data in transit over the network. Developers must still implement robust local encryption for stored data (e.g., EncryptedSharedPreferences/Keychain) and maintain server-side protection.
+A common misconception regarding iOS App Transport Security (ATS) is that it secures all app data end-to-end. In reality, ATS only protects data in transit over HTTPS networks; it does not encrypt data stored locally on the device or secure backend server storage.
+
+Resource: Apple Developer Documentation: App Transport Security - https://developer.apple.com/documentation/security/app_transport_security
+
 ## Open Question
-- How can mobile applications efficiently cache RAG-retrieved data locally while ensuring real-time compliance with updated public service policies without causing excessive data usage?
+How can mobile applications efficiently cache RAG-retrieved public service data locally while maintaining real-time compliance with policy updates without causing high data usage?
